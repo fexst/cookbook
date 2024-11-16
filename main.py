@@ -19,3 +19,23 @@ with open('recipes.txt', encoding='UTF-8') as f:
                         ingredients['quantity'] = quantity.strip()
                         ingredients['measure'] = measure.strip()
                     cook_book[dish].append(ingredients)
+                    
+def get_shop_list_by_dishes(dishes, person_count):
+    result = {}
+
+    for dish in dishes:
+        if dish in cook_book:
+            for ingredient in cook_book[dish]:
+                name = ingredient['ingredient_name']
+                quantity = int(ingredient['quantity']) * person_count
+                measure = ingredient['measure']
+                if name not in result:
+                    result[name] = {'measure': measure, 'quantity': quantity}
+                else:
+                    result[name]['quantity'] += quantity
+
+    return print(result)
+
+
+
+get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
